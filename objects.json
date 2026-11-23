@@ -1,122 +1,976 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Object — Transport Ecology</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header>
-  <div class="logo"><img src="transport-logo.png" alt="Logo"> Transport Ecology Map</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="map.html">Map</a>
-    <a href="solutions.html">Solutions</a>
-    <a href="rwa.html">RWA & Liquidity</a>
-    <a href="eco-token.html">ECO Token</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="tokens.html">Tokens & Pay</a>
-    <a href="treasury.html">Treasury</a>
-    <a href="signal.html">Signal</a>
-    <a href="response.html">Right of Reply</a>
-  </nav>
-</header>
-<main>
-  <article id="content"><p>Loading...</p></article>
-</main>
-<footer>
-  <p>Contact: <a href="mailto:ecologyoilgaz@gmail.com">ecologyoilgaz@gmail.com</a> ·
-    <a href="eco-token.html">ECO Token</a> ·
-    <a href="tokens.html">Tokens & Pay</a> ·
-    <a href="treasury.html">Treasury (Solana)</a> ·
-    <a href="methodology.html">Methodology</a>
-  </p>
-</footer>
-<script>
-const id = new URLSearchParams(location.search).get('id');
+{
+  "meta": {"count": 75, "updated": "2026-11-23", "currency": "USD"},
+  "objects": {
+    "tashkent-transport": {
+      "title": "Tashkent Transport & Air Quality — Uzbekistan",
+      "country": "Uzbekistan", "region": "Central Asia", "lat": 41.30, "lon": 69.24, "status": "red",
+      "claimed": "Modern public transport, electric buses",
+      "actual": "PM2.5 annual average exceeds WHO guideline by more than 6x; transport contributes 16% of PM2.5 (heating 28%, industry 13%)",
+      "gap": "Transport share underreported; old fleet dominant",
+      "financial_impact": {"loss_usd": 200000000, "description": "Health costs from transport PM2.5", "formula": "Health damage (estimate)"},
+      "solutions": [
+        {"name": "Electric bus fleet expansion", "type": "Medium", "effect": "Reduce PM/NOx", "cost": "$100M"},
+        {"name": "Emission inspection enforcement", "type": "Fast", "effect": "Remove worst polluters", "cost": "$10M"}
+      ],
+      "sources": ["World Bank Air Quality Assessment 2024"], "companies": ["Tashkent Municipality"],
+      "documents": [{"name": "World Bank Report", "url": "https://www.worldbank.org/en/country/uzbekistan/publication/air-quality-assessment-for-tashkent"}]
+    },
+    "almaty-transport": {
+      "title": "Almaty Transport & Smog — Kazakhstan",
+      "country": "Kazakhstan", "region": "Central Asia", "lat": 43.24, "lon": 76.89, "status": "red",
+      "claimed": "Eco-transport programs",
+      "actual": "Transport accounts for 60.6% of total pollutant emissions; 116,500 tonnes/year; 650,017 registered cars + ~250,000 entering daily; 24,793 violations (11%) in 227,538 inspections",
+      "gap": "High transport share; weak enforcement",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health and environment", "formula": "PM/NOx damage (estimate)"},
+      "solutions": [
+        {"name": "Public transport priority", "type": "Medium", "effect": "Reduce car use", "cost": "$300M"},
+        {"name": "Stricter inspection", "type": "Fast", "effect": "Remove 11% violators", "cost": "$20M"}
+      ],
+      "sources": ["Kazinform 2026", "Almaty Akimat"], "companies": ["Almaty Akimat"],
+      "documents": []
+    },
+    "bishkek-transport": {
+      "title": "Bishkek Transport & Winter Smog — Kyrgyzstan",
+      "country": "Kyrgyzstan", "region": "Central Asia", "lat": 42.87, "lon": 74.59, "status": "red",
+      "claimed": "Air quality management",
+      "actual": "118–120 days/year PM2.5 exceeds national norm; annual average 44–47 µg/m³ (almost 9x WHO); peak 367 µg/m³ (Dec 24, 2024)",
+      "gap": "Winter smog; old fleet",
+      "financial_impact": {"loss_usd": 150000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Vehicle inspection + fuel quality", "type": "Fast", "effect": "Reduce PM", "cost": "$15M"},
+        {"name": "Public transport modernization", "type": "Medium", "effect": "Lower emissions", "cost": "$80M"}
+      ],
+      "sources": ["MoveGreen 2024–2025"], "companies": ["Bishkek Municipality"],
+      "documents": [{"name": "MoveGreen Report", "url": "https://movegreen.kg/"}]
+    },
+    "dushanbe-transport": {
+      "title": "Dushanbe Transport & PM2.5 — Tajikistan",
+      "country": "Tajikistan", "region": "Central Asia", "lat": 38.56, "lon": 68.79, "status": "red",
+      "claimed": "Transport modernization",
+      "actual": "Transport CO₂ 1.9 Mt (21% of national emissions, 2023); road transport 96% of transport emissions; PM2.5 data limited",
+      "gap": "Data scarcity; old fleet",
+      "financial_impact": {"loss_usd": 100000000, "description": "Health costs", "formula": "Estimate (low confidence)"},
+      "solutions": [
+        {"name": "Vehicle inspection", "type": "Fast", "effect": "Reduce PM", "cost": "$10M"},
+        {"name": "Electric bus pilot", "type": "Medium", "effect": "Lower emissions", "cost": "$50M"}
+      ],
+      "sources": ["Asian Transport Outlook 2024"], "companies": ["Dushanbe Municipality"],
+      "documents": [{"name": "ATO Report", "url": "https://asiantransportobservatory.org/"}]
+    },
+    "ashgabat-transport": {
+      "title": "Ashgabat Transport & Dust — Turkmenistan",
+      "country": "Turkmenistan", "region": "Central Asia", "lat": 37.95, "lon": 58.38, "status": "red",
+      "claimed": "Modern city transport",
+      "actual": "Data scarce; dust and transport emissions combined; no public air quality monitoring",
+      "gap": "Opacity; no data",
+      "financial_impact": {"loss_usd": 50000000, "description": "Health costs (low confidence)", "formula": "Estimate"},
+      "solutions": [
+        {"name": "Air quality monitoring network", "type": "Fast", "effect": "Data for action", "cost": "$5M"},
+        {"name": "Vehicle inspection", "type": "Medium", "effect": "Reduce PM", "cost": "$20M"}
+      ],
+      "sources": ["EcoAudit CA"], "companies": ["Ashgabat Municipality"],
+      "documents": []
+    },
+    "tehran-transport": {
+      "title": "Tehran Transport & NO₂ — Iran",
+      "country": "Iran", "region": "Middle East", "lat": 35.69, "lon": 51.39, "status": "red",
+      "claimed": "Metro expansion, fuel standards",
+      "actual": "Highest NO₂ among world megacities; 294 µmol/m² (2019–2024); growth 3.1%/year; transport main source",
+      "gap": "Highest urban NO₂ globally",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health crisis", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$5B"},
+        {"name": "Fuel quality upgrade", "type": "Fast", "effect": "Lower NOx", "cost": "$500M"}
+      ],
+      "sources": ["Sentinel-5P 2019–2024 study"], "companies": ["Tehran Municipality"],
+      "documents": []
+    },
+    "mexico-city-transport": {
+      "title": "Mexico City Transport & Smog — Mexico",
+      "country": "Mexico", "region": "North America", "lat": 19.43, "lon": -99.13, "status": "red",
+      "claimed": "Hoy No Circula program",
+      "actual": "Persistent ozone and PM2.5; transport major source; 5.5M vehicles",
+      "gap": "Program insufficient",
+      "financial_impact": {"loss_usd": 3000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro and BRT expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"},
+        {"name": "Vehicle inspection upgrade", "type": "Fast", "effect": "Remove worst", "cost": "$100M"}
+      ],
+      "sources": ["OpenAQ", "Sentinel-5P"], "companies": ["Mexico City Government"],
+      "documents": []
+    },
+    "santiago-transport": {
+      "title": "Santiago Transport & PM2.5 — Chile",
+      "country": "Chile", "region": "South America", "lat": -33.45, "lon": -70.67, "status": "red",
+      "claimed": "Transantiago BRT",
+      "actual": "PM2.5 and NO₂ high; transport major source; winter smog",
+      "gap": "BRT insufficient",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Electric bus fleet", "type": "Medium", "effect": "Reduce PM/NOx", "cost": "$500M"},
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ", "Sentinel-5P"], "companies": ["Santiago Metro"],
+      "documents": []
+    },
+    "sao-paulo-transport": {
+      "title": "São Paulo Transport & NO₂ — Brazil",
+      "country": "Brazil", "region": "South America", "lat": -23.55, "lon": -46.63, "status": "red",
+      "claimed": "Bus corridor expansion",
+      "actual": "NO₂ high; 7M vehicles; transport main source",
+      "gap": "Scale vs mitigation",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Bus electrification", "type": "Medium", "effect": "Reduce emissions", "cost": "$1B"},
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$5B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["São Paulo Municipality"],
+      "documents": []
+    },
+    "jakarta-transport": {
+      "title": "Jakarta Transport & Air Quality — Indonesia",
+      "country": "Indonesia", "region": "Asia", "lat": -6.21, "lon": 106.85, "status": "red",
+      "claimed": "MRT and LRT expansion",
+      "actual": "PM2.5 and NO₂ high; transport major source; 10M+ vehicles",
+      "gap": "Infrastructure lag",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "MRT/LRT expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"},
+        {"name": "Fuel quality standards", "type": "Fast", "effect": "Lower emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Jakarta Government"],
+      "documents": []
+    },
+    "delhi-transport": {
+      "title": "Delhi Transport & Air Crisis — India",
+      "country": "India", "region": "Asia", "lat": 28.61, "lon": 77.21, "status": "red",
+      "claimed": "Odd-even scheme, CNG buses",
+      "actual": "PM2.5 extreme; transport major source; 10M+ vehicles",
+      "gap": "Scheme insufficient",
+      "financial_impact": {"loss_usd": 5000000000, "description": "Health crisis", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$5B"},
+        {"name": "Electric bus fleet", "type": "Medium", "effect": "Reduce emissions", "cost": "$1B"}
+      ],
+      "sources": ["OpenAQ", "Sentinel-5P"], "companies": ["Delhi Government"],
+      "documents": []
+    },
+    "beijing-transport": {
+      "title": "Beijing Transport & NO₂ — China",
+      "country": "China", "region": "Asia", "lat": 39.90, "lon": 116.40, "status": "red",
+      "claimed": "License plate lottery, EV subsidies",
+      "actual": "NO₂ and PM2.5 improved but still high; 6M+ vehicles",
+      "gap": "Scale vs improvement",
+      "financial_impact": {"loss_usd": 3000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "EV mandate", "type": "Medium", "effect": "Reduce emissions", "cost": "$2B"},
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$5B"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["Beijing Government"],
+      "documents": []
+    },
+    "shanghai-port": {
+      "title": "Shanghai Port & Ship Emissions — China",
+      "country": "China", "region": "Asia", "lat": 31.23, "lon": 121.47, "status": "red",
+      "claimed": "Shore power expansion",
+      "actual": "World's largest port; ship NO₂ and SO₂ significant; shore power limited",
+      "gap": "Ship emissions vs shore power",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health costs", "formula": "NO₂/SO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Mandatory shore power", "type": "Medium", "effect": "Cut ship emissions", "cost": "$500M"},
+        {"name": "Clean fuel standard", "type": "Fast", "effect": "Lower SO₂", "cost": "$100M"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["Shanghai Port Authority"],
+      "documents": []
+    },
+    "singapore-port": {
+      "title": "Singapore Port & Ship Emissions — Singapore",
+      "country": "Singapore", "region": "Asia", "lat": 1.29, "lon": 103.85, "status": "red",
+      "claimed": "Clean maritime plan",
+      "actual": "Major bunkering hub; ship emissions significant; shore power limited",
+      "gap": "Ship emissions",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "NO₂/SO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power mandate", "type": "Medium", "effect": "Cut ship emissions", "cost": "$200M"},
+        {"name": "LNG bunkering", "type": "Fast", "effect": "Lower SO₂", "cost": "$100M"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["MPA Singapore"],
+      "documents": []
+    },
+    "rotterdam-port": {
+      "title": "Rotterdam Port & Ship Emissions — Netherlands",
+      "country": "Netherlands", "region": "Europe", "lat": 51.92, "lon": 4.48, "status": "red",
+      "claimed": "Green port strategy",
+      "actual": "Europe's largest port; ship emissions significant; shore power expanding",
+      "gap": "Ship emissions",
+      "financial_impact": {"loss_usd": 800000000, "description": "Health costs", "formula": "NO₂/SO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power expansion", "type": "Medium", "effect": "Cut ship emissions", "cost": "$300M"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["Port of Rotterdam"],
+      "documents": []
+    },
+    "antwerp-port": {
+      "title": "Antwerp Port & Ship Emissions — Belgium",
+      "country": "Belgium", "region": "Europe", "lat": 51.22, "lon": 4.40, "status": "red",
+      "claimed": "Sustainable port",
+      "actual": "Second-largest EU port; ship emissions significant",
+      "gap": "Ship emissions",
+      "financial_impact": {"loss_usd": 600000000, "description": "Health costs", "formula": "NO₂/SO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power", "type": "Medium", "effect": "Cut ship emissions", "cost": "$200M"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["Port of Antwerp"],
+      "documents": []
+    },
+    "hamburg-port": {
+      "title": "Hamburg Port & Ship Emissions — Germany",
+      "country": "Germany", "region": "Europe", "lat": 53.55, "lon": 9.99, "status": "red",
+      "claimed": "Green port",
+      "actual": "Major EU port; ship emissions significant",
+      "gap": "Ship emissions",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "NO₂/SO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power", "type": "Medium", "effect": "Cut ship emissions", "cost": "$150M"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["Port of Hamburg"],
+      "documents": []
+    },
+    "los-angeles-port": {
+      "title": "Los Angeles/Long Beach Ports — USA",
+      "country": "USA", "region": "North America", "lat": 33.74, "lon": -118.27, "status": "red",
+      "claimed": "Clean Air Action Plan",
+      "actual": "Largest US port complex; ship and truck emissions significant",
+      "gap": "Ship/truck emissions",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power mandate", "type": "Medium", "effect": "Cut ship emissions", "cost": "$500M"},
+        {"name": "Electric truck fleet", "type": "Long", "effect": "Cut truck emissions", "cost": "$1B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Port of LA/Long Beach"],
+      "documents": []
+    },
+    "houston-port": {
+      "title": "Houston Ship Channel — USA",
+      "country": "USA", "region": "North America", "lat": 29.73, "lon": -95.27, "status": "red",
+      "claimed": "Port Houston clean air",
+      "actual": "Major petrochemical port; ship and industry emissions combined",
+      "gap": "Ship/industry emissions",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power", "type": "Medium", "effect": "Cut ship emissions", "cost": "$300M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Port Houston"],
+      "documents": []
+    },
+    "dubai-port": {
+      "title": "Jebel Ali Port — UAE",
+      "country": "UAE", "region": "Middle East", "lat": 25.01, "lon": 55.06, "status": "red",
+      "claimed": "Smart port",
+      "actual": "Largest port in Middle East; ship emissions significant",
+      "gap": "Ship emissions",
+      "financial_impact": {"loss_usd": 400000000, "description": "Health costs", "formula": "NO₂/SO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power", "type": "Medium", "effect": "Cut ship emissions", "cost": "$150M"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["DP World"],
+      "documents": []
+    },
+    "istanbul-airport": {
+      "title": "Istanbul Airport — Turkey",
+      "country": "Turkey", "region": "Europe/Asia", "lat": 41.26, "lon": 28.74, "status": "red",
+      "claimed": "Green airport",
+      "actual": "One of world's largest airports; CO₂ and NOx significant",
+      "gap": "Aviation emissions",
+      "financial_impact": {"loss_usd": 300000000, "description": "Climate and health", "formula": "CO₂/NOx damage (estimate)"},
+      "solutions": [
+        {"name": "SAF mandate", "type": "Medium", "effect": "Cut CO₂", "cost": "$200M"},
+        {"name": "Ground fleet electrification", "type": "Fast", "effect": "Cut NOx", "cost": "$50M"}
+      ],
+      "sources": ["Climate TRACE"], "companies": ["IGA"],
+      "documents": []
+    },
+    "dubai-airport": {
+      "title": "Dubai International Airport — UAE",
+      "country": "UAE", "region": "Middle East", "lat": 25.25, "lon": 55.36, "status": "red",
+      "claimed": "World's busiest airport",
+      "actual": "CO₂ and NOx significant; expansion continues",
+      "gap": "Aviation emissions",
+      "financial_impact": {"loss_usd": 500000000, "description": "Climate and health", "formula": "CO₂/NOx damage (estimate)"},
+      "solutions": [
+        {"name": "SAF mandate", "type": "Medium", "effect": "Cut CO₂", "cost": "$300M"}
+      ],
+      "sources": ["Climate TRACE"], "companies": ["Dubai Airports"],
+      "documents": []
+    },
+    "heathrow-airport": {
+      "title": "Heathrow Airport — UK",
+      "country": "UK", "region": "Europe", "lat": 51.47, "lon": -0.45, "status": "red",
+      "claimed": "Third runway debate",
+      "actual": "Major hub; CO₂ and NOx significant; noise",
+      "gap": "Aviation emissions",
+      "financial_impact": {"loss_usd": 400000000, "description": "Climate and health", "formula": "CO₂/NOx damage (estimate)"},
+      "solutions": [
+        {"name": "SAF mandate", "type": "Medium", "effect": "Cut CO₂", "cost": "$200M"}
+      ],
+      "sources": ["Climate TRACE"], "companies": ["Heathrow Airport Holdings"],
+      "documents": []
+    },
+    "atlanta-airport": {
+      "title": "Hartsfield-Jackson Atlanta — USA",
+      "country": "USA", "region": "North America", "lat": 33.64, "lon": -84.44, "status": "red",
+      "claimed": "World's busiest passenger airport",
+      "actual": "CO₂ and NOx significant; ground fleet",
+      "gap": "Aviation emissions",
+      "financial_impact": {"loss_usd": 300000000, "description": "Climate and health", "formula": "CO₂/NOx damage (estimate)"},
+      "solutions": [
+        {"name": "SAF mandate", "type": "Medium", "effect": "Cut CO₂", "cost": "$150M"}
+      ],
+      "sources": ["Climate TRACE"], "companies": ["City of Atlanta"],
+      "documents": []
+    },
+    "tokyo-airport": {
+      "title": "Haneda Airport — Japan",
+      "country": "Japan", "region": "Asia", "lat": 35.55, "lon": 139.78, "status": "red",
+      "claimed": "Efficient hub",
+      "actual": "CO₂ and NOx significant",
+      "gap": "Aviation emissions",
+      "financial_impact": {"loss_usd": 200000000, "description": "Climate and health", "formula": "CO₂/NOx damage (estimate)"},
+      "solutions": [
+        {"name": "SAF mandate", "type": "Medium", "effect": "Cut CO₂", "cost": "$100M"}
+      ],
+      "sources": ["Climate TRACE"], "companies": ["Japan Airport Terminal"],
+      "documents": []
+    },
+    "global-cruise-emissions": {
+      "title": "Global Cruise Ship Emissions",
+      "country": "Global", "region": "Global", "lat": 0, "lon": 0, "status": "red",
+      "claimed": "Green cruising",
+      "actual": "1% of global fleet but 6% of black carbon emissions; heavy fuel oil dominant",
+      "gap": "Disproportionate emissions",
+      "financial_impact": {"loss_usd": 5000000000, "description": "Climate and health", "formula": "Black carbon/CO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "Shore power mandate", "type": "Medium", "effect": "Cut port emissions", "cost": "$2B"},
+        {"name": "Clean fuel standard", "type": "Fast", "effect": "Cut SO₂/black carbon", "cost": "$500M"}
+      ],
+      "sources": ["Transport & Environment 2024"], "companies": ["Various cruise lines"],
+      "documents": []
+    },
+    "global-aviation-emissions": {
+      "title": "Global Aviation Emissions",
+      "country": "Global", "region": "Global", "lat": 0, "lon": 0, "status": "red",
+      "claimed": "CORSIA offsetting",
+      "actual": "2–3% of global CO₂; short-haul highest intensity (~244 g CO₂/pkm)",
+      "gap": "Offsetting not reduction",
+      "financial_impact": {"loss_usd": 50000000000, "description": "Climate", "formula": "Social cost of carbon (estimate)"},
+      "solutions": [
+        {"name": "SAF mandate", "type": "Medium", "effect": "Cut CO₂", "cost": "$10B"},
+        {"name": "Short-haul rail substitution", "type": "Long", "effect": "Avoid flights", "cost": "Policy"}
+      ],
+      "sources": ["ICCT", "IATA"], "companies": ["Various airlines"],
+      "documents": []
+    },
+    "global-road-transport": {
+      "title": "Global Road Transport Emissions",
+      "country": "Global", "region": "Global", "lat": 0, "lon": 0, "status": "red",
+      "claimed": "EV transition",
+      "actual": "Road transport ~75% of transport CO₂; 14% of global GHG",
+      "gap": "EV transition pace",
+      "financial_impact": {"loss_usd": 100000000000, "description": "Climate and health", "formula": "Aggregate (estimate)"},
+      "solutions": [
+        {"name": "EV mandates", "type": "Medium", "effect": "Cut CO₂", "cost": "Policy"},
+        {"name": "Public transport investment", "type": "Long", "effect": "Reduce car use", "cost": "$1T"}
+      ],
+      "sources": ["IEA 2024"], "companies": ["Various"],
+      "documents": []
+    },
 
-fetch('objects.json')
-  .then(function (r) {
-    if (!r.ok) throw new Error('objects.json not found');
-    return r.json();
-  })
-  .then(function (data) {
-    const objects = data.objects || data;
-    const o = objects[id];
-    const el = document.getElementById('content');
-
-    if (!o) {
-      el.innerHTML = '<p>Object not found. <a href="index.html">Back to list</a></p>';
-      return;
+    "moscow-transport": {
+      "title": "Moscow Transport & NO₂ — Russia",
+      "country": "Russia", "region": "Europe/Asia", "lat": 55.76, "lon": 37.62, "status": "red",
+      "claimed": "Metro expansion, car-sharing",
+      "actual": "NO₂ high; 4M+ vehicles; transport major source",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$5B"}
+      ],
+      "sources": ["Sentinel-5P"], "companies": ["Moscow Government"],
+      "documents": []
+    },
+    "cairo-transport": {
+      "title": "Cairo Transport & PM2.5 — Egypt",
+      "country": "Egypt", "region": "Africa", "lat": 30.04, "lon": 31.24, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 extreme; transport major source; 3M+ vehicles",
+      "gap": "Old fleet + dust",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"},
+        {"name": "Vehicle inspection", "type": "Fast", "effect": "Remove worst", "cost": "$50M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Cairo Municipality"],
+      "documents": []
+    },
+    "lagos-transport": {
+      "title": "Lagos Transport & Air Quality — Nigeria",
+      "country": "Nigeria", "region": "Africa", "lat": 6.52, "lon": 3.38, "status": "red",
+      "claimed": "BRT expansion",
+      "actual": "PM2.5 high; transport major source; old fleet",
+      "gap": "Infrastructure lag",
+      "financial_impact": {"loss_usd": 1000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "BRT expansion", "type": "Medium", "effect": "Reduce car use", "cost": "$500M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Lagos State Government"],
+      "documents": []
+    },
+    "nairobi-transport": {
+      "title": "Nairobi Transport & PM2.5 — Kenya",
+      "country": "Kenya", "region": "Africa", "lat": -1.29, "lon": 36.82, "status": "red",
+      "claimed": "BRT and commuter rail",
+      "actual": "PM2.5 high; transport major source; old fleet",
+      "gap": "Infrastructure lag",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "BRT expansion", "type": "Medium", "effect": "Reduce car use", "cost": "$300M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Nairobi County"],
+      "documents": []
+    },
+    "johannesburg-transport": {
+      "title": "Johannesburg Transport & NO₂ — South Africa",
+      "country": "South Africa", "region": "Africa", "lat": -26.20, "lon": 28.05, "status": "red",
+      "claimed": "Rea Vaya BRT",
+      "actual": "NO₂ and PM2.5 high; transport major source",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 800000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "BRT expansion", "type": "Medium", "effect": "Reduce car use", "cost": "$400M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["City of Johannesburg"],
+      "documents": []
+    },
+    "sydney-transport": {
+      "title": "Sydney Transport & NO₂ — Australia",
+      "country": "Australia", "region": "Oceania", "lat": -33.87, "lon": 151.21, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "NO₂ moderate but transport dominant; car dependence",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Transport for NSW"],
+      "documents": []
+    },
+    "melbourne-transport": {
+      "title": "Melbourne Transport & NO₂ — Australia",
+      "country": "Australia", "region": "Oceania", "lat": -37.81, "lon": 144.96, "status": "red",
+      "claimed": "Tram and rail expansion",
+      "actual": "NO₂ moderate but transport dominant; car dependence",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 400000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Rail expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["PTV"],
+      "documents": []
+    },
+    "los-angeles-transport": {
+      "title": "Los Angeles Transport & Smog — USA",
+      "country": "USA", "region": "North America", "lat": 34.05, "lon": -118.24, "status": "red",
+      "claimed": "Metro expansion, EV push",
+      "actual": "Persistent ozone and PM2.5; 7M+ vehicles; transport dominant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 3000000000, "description": "Health costs", "formula": "PM2.5/ozone damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$10B"},
+        {"name": "EV mandate", "type": "Medium", "effect": "Reduce emissions", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["LA Metro"],
+      "documents": []
+    },
+    "new-york-transport": {
+      "title": "New York City Transport & Air Quality — USA",
+      "country": "USA", "region": "North America", "lat": 40.71, "lon": -74.01, "status": "red",
+      "claimed": "Congestion pricing",
+      "actual": "PM2.5 and NO₂ moderate; 2M+ vehicles; transport significant",
+      "gap": "Congestion pricing delayed",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Congestion pricing", "type": "Fast", "effect": "Reduce traffic", "cost": "$1B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["MTA"],
+      "documents": []
+    },
+    "london-transport": {
+      "title": "London Transport & ULEZ — UK",
+      "country": "UK", "region": "Europe", "lat": 51.51, "lon": -0.13, "status": "red",
+      "claimed": "Ultra Low Emission Zone",
+      "actual": "NO₂ improved but still high; transport significant",
+      "gap": "ULEZ expansion contested",
+      "financial_impact": {"loss_usd": 1000000000, "description": "Health costs", "formula": "NO₂ damage (estimate)"},
+      "solutions": [
+        {"name": "ULEZ expansion", "type": "Fast", "effect": "Reduce NO₂", "cost": "$500M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["TfL"],
+      "documents": []
+    },
+    "paris-transport": {
+      "title": "Paris Transport & Air Quality — France",
+      "country": "France", "region": "Europe", "lat": 48.86, "lon": 2.35, "status": "red",
+      "claimed": "Low emission zone",
+      "actual": "NO₂ and PM2.5 moderate; transport significant",
+      "gap": "ZFE enforcement",
+      "financial_impact": {"loss_usd": 800000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "ZFE expansion", "type": "Fast", "effect": "Reduce emissions", "cost": "$400M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Mairie de Paris"],
+      "documents": []
+    },
+    "berlin-transport": {
+      "title": "Berlin Transport & Air Quality — Germany",
+      "country": "Germany", "region": "Europe", "lat": 52.52, "lon": 13.40, "status": "red",
+      "claimed": "Low emission zone",
+      "actual": "NO₂ moderate; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 600000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Low emission zone expansion", "type": "Fast", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Berlin Senate"],
+      "documents": []
+    },
+    "madrid-transport": {
+      "title": "Madrid Transport & Air Quality — Spain",
+      "country": "Spain", "region": "Europe", "lat": 40.42, "lon": -3.70, "status": "red",
+      "claimed": "Madrid Central low emission zone",
+      "actual": "NO₂ moderate; transport significant",
+      "gap": "Enforcement",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Low emission zone expansion", "type": "Fast", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Ayuntamiento de Madrid"],
+      "documents": []
+    },
+    "rome-transport": {
+      "title": "Rome Transport & Air Quality — Italy",
+      "country": "Italy", "region": "Europe", "lat": 41.90, "lon": 12.50, "status": "red",
+      "claimed": "Limited traffic zones",
+      "actual": "NO₂ and PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 700000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Vehicle fleet renewal", "type": "Medium", "effect": "Reduce emissions", "cost": "$300M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Roma Capitale"],
+      "documents": []
+    },
+    "warsaw-transport": {
+      "title": "Warsaw Transport & Air Quality — Poland",
+      "country": "Poland", "region": "Europe", "lat": 52.23, "lon": 21.01, "status": "red",
+      "claimed": "Low emission zone",
+      "actual": "PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 600000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Low emission zone", "type": "Fast", "effect": "Reduce PM", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["City of Warsaw"],
+      "documents": []
+    },
+    "kyiv-transport": {
+      "title": "Kyiv Transport & Air Quality — Ukraine",
+      "country": "Ukraine", "region": "Europe", "lat": 50.45, "lon": 30.52, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "NO₂ and PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet + war impact",
+      "financial_impact": {"loss_usd": 800000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Fleet renewal", "type": "Medium", "effect": "Reduce emissions", "cost": "$300M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Kyiv Metro"],
+      "documents": []
+    },
+    "istanbul-transport": {
+      "title": "Istanbul Transport & Air Quality — Turkey",
+      "country": "Turkey", "region": "Europe/Asia", "lat": 41.01, "lon": 28.98, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "NO₂ and PM2.5 high; 4M+ vehicles; transport dominant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Istanbul Municipality"],
+      "documents": []
+    },
+    "athens-transport": {
+      "title": "Athens Transport & Air Quality — Greece",
+      "country": "Greece", "region": "Europe", "lat": 37.98, "lon": 23.73, "status": "red",
+      "claimed": "Low emission zone",
+      "actual": "NO₂ and PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "NO₂/PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Vehicle fleet renewal", "type": "Medium", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["City of Athens"],
+      "documents": []
+    },
+    "seoul-transport": {
+      "title": "Seoul Transport & Air Quality — South Korea",
+      "country": "South Korea", "region": "Asia", "lat": 37.57, "lon": 126.98, "status": "red",
+      "claimed": "Clean air policies",
+      "actual": "PM2.5 high; transport significant",
+      "gap": "Regional pollution",
+      "financial_impact": {"loss_usd": 2000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Seoul Metropolitan Government"],
+      "documents": []
+    },
+    "taipei-transport": {
+      "title": "Taipei Transport & Air Quality — Taiwan",
+      "country": "Taiwan", "region": "Asia", "lat": 25.03, "lon": 121.56, "status": "red",
+      "claimed": "MRT expansion",
+      "actual": "PM2.5 moderate; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 800000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "MRT expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Taipei City Government"],
+      "documents": []
+    },
+    "bangkok-transport": {
+      "title": "Bangkok Transport & Air Quality — Thailand",
+      "country": "Thailand", "region": "Asia", "lat": 13.76, "lon": 100.50, "status": "red",
+      "claimed": "BTS and MRT expansion",
+      "actual": "PM2.5 high; transport significant; 10M+ vehicles",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Bangkok Metropolitan Administration"],
+      "documents": []
+    },
+    "ho-chi-minh-transport": {
+      "title": "Ho Chi Minh City Transport & Air Quality — Vietnam",
+      "country": "Vietnam", "region": "Asia", "lat": 10.82, "lon": 106.63, "status": "red",
+      "claimed": "Metro Line 1",
+      "actual": "PM2.5 high; transport significant; 8M+ motorcycles",
+      "gap": "Motorcycle dependence",
+      "financial_impact": {"loss_usd": 1000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce motorcycles", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["HCMC Government"],
+      "documents": []
+    },
+    "manila-transport": {
+      "title": "Manila Transport & Air Quality — Philippines",
+      "country": "Philippines", "region": "Asia", "lat": 14.60, "lon": 120.98, "status": "red",
+      "claimed": "Jeepney modernization",
+      "actual": "PM2.5 high; transport significant; jeepney fleet old",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 1000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Jeepney modernization", "type": "Medium", "effect": "Reduce emissions", "cost": "$500M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["MMDA"],
+      "documents": []
+    },
+    "kuala-lumpur-transport": {
+      "title": "Kuala Lumpur Transport & Air Quality — Malaysia",
+      "country": "Malaysia", "region": "Asia", "lat": 3.14, "lon": 101.69, "status": "red",
+      "claimed": "MRT expansion",
+      "actual": "PM2.5 moderate; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 600000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "MRT expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["DBKL"],
+      "documents": []
+    },
+    "mumbai-transport": {
+      "title": "Mumbai Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 19.08, "lon": 72.88, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 high; transport significant; 3M+ vehicles",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 3000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$5B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Mumbai Municipality"],
+      "documents": []
+    },
+    "chennai-transport": {
+      "title": "Chennai Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 13.08, "lon": 80.27, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 high; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Chennai Corporation"],
+      "documents": []
+    },
+    "kolkata-transport": {
+      "title": "Kolkata Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 22.57, "lon": 88.36, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 high; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1200000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Kolkata Municipality"],
+      "documents": []
+    },
+    "bangalore-transport": {
+      "title": "Bangalore Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 12.97, "lon": 77.59, "status": "red",
+      "claimed": "Namma Metro expansion",
+      "actual": "PM2.5 high; transport significant; 10M+ vehicles",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$4B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["BMRCL"],
+      "documents": []
+    },
+    "hyderabad-transport": {
+      "title": "Hyderabad Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 17.38, "lon": 78.48, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 high; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["HMRL"],
+      "documents": []
+    },
+    "ahmedabad-transport": {
+      "title": "Ahmedabad Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 23.03, "lon": 72.58, "status": "red",
+      "claimed": "BRTS and Metro",
+      "actual": "PM2.5 high; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 800000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Ahmedabad Municipal Corporation"],
+      "documents": []
+    },
+    "pune-transport": {
+      "title": "Pune Transport & Air Quality — India",
+      "country": "India", "region": "Asia", "lat": 18.52, "lon": 73.86, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 high; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 700000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["PMRDA"],
+      "documents": []
+    },
+    "karachi-transport": {
+      "title": "Karachi Transport & Air Quality — Pakistan",
+      "country": "Pakistan", "region": "Asia", "lat": 24.86, "lon": 67.01, "status": "red",
+      "claimed": "BRT and Green Line",
+      "actual": "PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 1200000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "BRT expansion", "type": "Medium", "effect": "Reduce car use", "cost": "$500M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Karachi Metropolitan Corporation"],
+      "documents": []
+    },
+    "lahore-transport": {
+      "title": "Lahore Transport & Air Quality — Pakistan",
+      "country": "Pakistan", "region": "Asia", "lat": 31.55, "lon": 74.34, "status": "red",
+      "claimed": "Orange Line Metro",
+      "actual": "PM2.5 extreme; transport significant; smog",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 1000000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$2B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Lahore Development Authority"],
+      "documents": []
+    },
+    "dhaka-transport": {
+      "title": "Dhaka Transport & Air Quality — Bangladesh",
+      "country": "Bangladesh", "region": "Asia", "lat": 23.81, "lon": 90.41, "status": "red",
+      "claimed": "MRT Line 6",
+      "actual": "PM2.5 extreme; transport significant; rickshaws and old buses",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 1500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "MRT expansion", "type": "Long", "effect": "Reduce car use", "cost": "$3B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Dhaka North City Corporation"],
+      "documents": []
+    },
+    "kathmandu-transport": {
+      "title": "Kathmandu Transport & Air Quality — Nepal",
+      "country": "Nepal", "region": "Asia", "lat": 27.72, "lon": 85.32, "status": "red",
+      "claimed": "Electric bus pilot",
+      "actual": "PM2.5 high; transport significant; valley topography traps pollution",
+      "gap": "Valley inversion",
+      "financial_impact": {"loss_usd": 300000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Electric bus fleet", "type": "Medium", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Kathmandu Metropolitan City"],
+      "documents": []
+    },
+    "colombo-transport": {
+      "title": "Colombo Transport & Air Quality — Sri Lanka",
+      "country": "Sri Lanka", "region": "Asia", "lat": 6.93, "lon": 79.86, "status": "red",
+      "claimed": "BRT and rail",
+      "actual": "PM2.5 moderate; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 400000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "BRT expansion", "type": "Medium", "effect": "Reduce car use", "cost": "$300M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Colombo Municipal Council"],
+      "documents": []
+    },
+    "yangon-transport": {
+      "title": "Yangon Transport & Air Quality — Myanmar",
+      "country": "Myanmar", "region": "Asia", "lat": 16.87, "lon": 96.20, "status": "red",
+      "claimed": "Urban transport improvement",
+      "actual": "PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Bus fleet renewal", "type": "Medium", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Yangon City Development Committee"],
+      "documents": []
+    },
+    "phnom-penh-transport": {
+      "title": "Phnom Penh Transport & Air Quality — Cambodia",
+      "country": "Cambodia", "region": "Asia", "lat": 11.56, "lon": 104.92, "status": "red",
+      "claimed": "Bus expansion",
+      "actual": "PM2.5 high; transport significant; motorcycles dominant",
+      "gap": "Motorcycle dependence",
+      "financial_impact": {"loss_usd": 300000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Bus expansion", "type": "Medium", "effect": "Reduce motorcycles", "cost": "$150M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Phnom Penh Municipality"],
+      "documents": []
+    },
+    "vientiane-transport": {
+      "title": "Vientiane Transport & Air Quality — Laos",
+      "country": "Laos", "region": "Asia", "lat": 17.97, "lon": 102.63, "status": "red",
+      "claimed": "Bus expansion",
+      "actual": "PM2.5 moderate; transport significant; motorcycles dominant",
+      "gap": "Motorcycle dependence",
+      "financial_impact": {"loss_usd": 150000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Bus expansion", "type": "Medium", "effect": "Reduce motorcycles", "cost": "$100M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Vientiane Municipality"],
+      "documents": []
+    },
+    "ulaanbaatar-transport": {
+      "title": "Ulaanbaatar Transport & Air Quality — Mongolia",
+      "country": "Mongolia", "region": "Asia", "lat": 47.89, "lon": 106.91, "status": "red",
+      "claimed": "Bus expansion",
+      "actual": "PM2.5 extreme; transport and coal heating combined; winter smog",
+      "gap": "Coal heating",
+      "financial_impact": {"loss_usd": 500000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Electric bus fleet", "type": "Medium", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Ulaanbaatar Municipality"],
+      "documents": []
+    },
+    "baku-transport": {
+      "title": "Baku Transport & Air Quality — Azerbaijan",
+      "country": "Azerbaijan", "region": "Europe/Asia", "lat": 40.41, "lon": 49.87, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 moderate; transport significant; oil industry combined",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 600000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$1B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Baku Metro"],
+      "documents": []
+    },
+    "tbilisi-transport": {
+      "title": "Tbilisi Transport & Air Quality — Georgia",
+      "country": "Georgia", "region": "Europe/Asia", "lat": 41.72, "lon": 44.79, "status": "red",
+      "claimed": "Metro and bus modernization",
+      "actual": "PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 400000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Bus fleet renewal", "type": "Medium", "effect": "Reduce emissions", "cost": "$200M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Tbilisi City Hall"],
+      "documents": []
+    },
+    "yerevan-transport": {
+      "title": "Yerevan Transport & Air Quality — Armenia",
+      "country": "Armenia", "region": "Europe/Asia", "lat": 40.18, "lon": 44.51, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 high; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 300000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Bus fleet renewal", "type": "Medium", "effect": "Reduce emissions", "cost": "$150M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Yerevan Municipality"],
+      "documents": []
+    },
+    "minsk-transport": {
+      "title": "Minsk Transport & Air Quality — Belarus",
+      "country": "Belarus", "region": "Europe", "lat": 53.90, "lon": 27.56, "status": "red",
+      "claimed": "Metro expansion",
+      "actual": "PM2.5 moderate; transport significant",
+      "gap": "Car dependence",
+      "financial_impact": {"loss_usd": 400000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Metro expansion", "type": "Long", "effect": "Reduce car use", "cost": "$1B"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Minsk Metro"],
+      "documents": []
+    },
+    "chisinau-transport": {
+      "title": "Chisinau Transport & Air Quality — Moldova",
+      "country": "Moldova", "region": "Europe", "lat": 47.01, "lon": 28.86, "status": "red",
+      "claimed": "Trolleybus modernization",
+      "actual": "PM2.5 moderate; transport significant; old fleet",
+      "gap": "Old fleet",
+      "financial_impact": {"loss_usd": 200000000, "description": "Health costs", "formula": "PM2.5 damage (estimate)"},
+      "solutions": [
+        {"name": "Trolleybus modernization", "type": "Medium", "effect": "Reduce emissions", "cost": "$100M"}
+      ],
+      "sources": ["OpenAQ"], "companies": ["Chisinau Municipality"],
+      "documents": []
     }
-
-    const badge = o.status === 'red'
-      ? '🔴 Gap Confirmed'
-      : o.status === 'green'
-        ? '🟢 Verified Result'
-        : '⚫ Pending Verification';
-
-    let financeHtml = '';
-    if (o.financial_impact) {
-      const usd = new Intl.NumberFormat('en-US', {
-        style: 'currency', currency: 'USD', maximumFractionDigits: 0
-      }).format(o.financial_impact.loss_usd);
-      financeHtml =
-        '<div class="detail-block" style="border-left: 4px solid var(--red);">' +
-          '<h3>Financial Impact</h3>' +
-          '<p style="font-size: 28px; color: var(--red); font-weight: bold; margin: 5px 0;">' + usd + '</p>' +
-          '<p>' + o.financial_impact.description + '</p>' +
-          '<p style="font-size: 12px; color: var(--muted);"><em>Calculation: ' + o.financial_impact.formula + '</em></p>' +
-        '</div>';
-    }
-
-    let docsHtml = '';
-    if (o.documents && o.documents.length > 0) {
-      const items = o.documents.map(function (d) {
-        return '<li><a href="' + d.url + '" target="_blank" rel="noopener">' + d.name + '</a></li>';
-      }).join('');
-      docsHtml =
-        '<div class="detail-block">' +
-          '<h3>Source Documents (Download/View)</h3>' +
-          '<ul>' + items + '</ul>' +
-        '</div>';
-    }
-
-    let solutionsHtml = '';
-    if (o.solutions && o.solutions.length > 0) {
-      const rows = o.solutions.map(function (s) {
-        const color = s.type === 'Fast' ? 'var(--green)' : s.type === 'Medium' ? 'var(--gold)' : 'var(--red)';
-        return '<tr><td>' + s.name + '</td><td><span style="color:' + color + '">' + s.type + '</span></td><td>' + s.effect + '</td><td>' + s.cost + '</td></tr>';
-      }).join('');
-      solutionsHtml =
-        '<div class="detail-block" style="border-left: 4px solid var(--green);">' +
-          '<h3>Ways to Fix (Solutions)</h3>' +
-          '<table style="width:100%;">' +
-            '<thead><tr><th>Option</th><th>Type</th><th>Effect</th><th>Cost</th></tr></thead>' +
-            '<tbody>' + rows + '</tbody>' +
-          '</table>' +
-        '</div>';
-    }
-
-    el.innerHTML =
-      '<h1>' + o.title + '</h1>' +
-      '<span class="status-badge ' + o.status + '">' + badge + '</span>' +
-      '<p style="color:var(--muted);margin:10px 0;">' + o.country + ' · ' + o.region + ' · ' + (o.lat || 0).toFixed(2) + ', ' + (o.lon || 0).toFixed(2) + '</p>' +
-      financeHtml +
-      '<div class="detail-block"><h3>Claimed</h3><p>' + (o.claimed || '—') + '</p></div>' +
-      '<div class="detail-block"><h3>Actual (Verified)</h3><p>' + (o.actual || '—') + '</p></div>' +
-      '<div class="detail-block"><h3>Gap</h3><p>' + (o.gap || '—') + '</p></div>' +
-      '<div class="detail-block"><h3>Companies</h3><p>' + ((o.companies || []).join(' · ') || '—') + '</p></div>' +
-      docsHtml +
-      solutionsHtml +
-      '<p style="margin-top:30px;"><a href="index.html">← Back to list</a> · <a href="map.html">Map</a></p>';
-  })
-  .catch(function (err) {
-    console.error(err);
-    document.getElementById('content').innerHTML =
-      '<p style="color:red;">Error loading data: ' + err.message + '</p>';
-  });
-</script>
-</body>
-</html>
+  }
+}
