@@ -7,8 +7,452 @@
 <meta name="description" content="Open database of urban air pollution from transport: NO₂, PM2.5, port emissions, airport impact. Verified via satellite data.">
 <link rel="icon" href="transport-icon-loss.png" type="image/png">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* ---------- DAY / NIGHT MODE (base variables) ---------- */
+  :root {
+    --bg: #f4f7fc;
+    --surface: #ffffff;
+    --text: #1a1f2b;
+    --muted: #5e6f8d;
+    --border: #dbe2ed;
+    --gold: #b8860b;
+    --red: #d32f2f;
+    --green: #2e7d32;
+    --gray: #7a7a7a;
+    --header-bg: #ffffff;
+    --card-bg: #ffffff;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --marquee-bg: #e8edf5;
+    --marquee-text: #1f2a3a;
+    --btn-bg: #1a3b5c;
+    --btn-text: #ffffff;
+  }
+
+  body.night-mode {
+    --bg: #0b0f1a;
+    --surface: #141b2b;
+    --text: #e6edf8;
+    --muted: #9aabbf;
+    --border: #2a3448;
+    --gold: #e6b84d;
+    --red: #ef5350;
+    --green: #66bb6a;
+    --gray: #8a8a8a;
+    --header-bg: #0e1422;
+    --card-bg: #141b2b;
+    --shadow: 0 2px 16px rgba(0,0,0,0.5);
+    --marquee-bg: #111927;
+    --marquee-text: #d0daea;
+    --btn-bg: #2a4b6e;
+    --btn-text: #ffffff;
+  }
+
+  /* ---------- BASE ---------- */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    transition: background 0.4s ease, color 0.4s ease;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---------- THEME TOGGLE BUTTON ---------- */
+  .theme-toggle {
+    position: fixed;
+    top: 14px;
+    right: 18px;
+    z-index: 9999;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .theme-toggle:hover {
+    transform: scale(1.08);
+    background: var(--gold);
+    color: #fff;
+  }
+
+  /* ---------- HEADER ---------- */
+  header {
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+    transition: background 0.4s, border-color 0.4s;
+    position: relative;
+    z-index: 10;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--text);
+  }
+  .logo img { height: 32px; width: auto; }
+  header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  header nav a {
+    color: var(--muted);
+    transition: color 0.2s;
+    text-decoration: none;
+    padding: 4px 2px;
+  }
+  header nav a:hover,
+  header nav a.active { color: var(--gold); text-decoration: none; }
+
+  /* ---------- MARQUEES ---------- */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--marquee-bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+    position: relative;
+    z-index: 5;
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .marquee-wrap.top { border-top: none; }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scrollLeft 38s linear infinite;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: var(--marquee-text);
+    white-space: nowrap;
+    will-change: transform;
+  }
+  .marquee-wrap.bottom .marquee-track {
+    animation: scrollRight 42s linear infinite;
+  }
+  .marquee-track span {
+    display: inline-block;
+    padding: 0 32px;
+    position: relative;
+  }
+  .marquee-track span::after {
+    content: '◆';
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: var(--gold);
+    font-size: 8px;
+    opacity: 0.7;
+  }
+  .marquee-track span:last-child::after { display: none; }
+
+  @keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  /* ---------- FLOATING GEOMETRIC BACKGROUND ---------- */
+  .geo-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .geo-bg .shape {
+    position: absolute;
+    opacity: 0.10;
+    border: 2px solid var(--gold);
+    transition: border-color 0.4s, opacity 0.4s;
+    animation: floatShape 18s infinite ease-in-out alternate;
+  }
+  body.night-mode .geo-bg .shape {
+    opacity: 0.12;
+    border-color: #5a7a9a;
+  }
+
+  .geo-bg .shape.circle {
+    border-radius: 50%;
+    width: 180px; height: 180px;
+    top: 12%; left: 5%;
+    animation-duration: 22s;
+  }
+  .geo-bg .shape.triangle {
+    width: 0; height: 0;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+    border-bottom: 150px solid var(--gold);
+    border-top: none;
+    top: 55%; left: 78%;
+    animation-duration: 19s;
+    animation-delay: -4s;
+    opacity: 0.07;
+    background: transparent;
+  }
+  body.night-mode .geo-bg .shape.triangle {
+    border-bottom-color: #6a8aaa;
+  }
+  .geo-bg .shape.square {
+    width: 130px; height: 130px;
+    top: 70%; left: 15%;
+    transform: rotate(45deg);
+    animation-duration: 25s;
+    animation-delay: -7s;
+    border-radius: 12px;
+  }
+  .geo-bg .shape.hexagon {
+    width: 150px; height: 86px;
+    background: transparent;
+    border: none;
+    top: 25%; left: 65%;
+    animation-duration: 21s;
+    animation-delay: -2s;
+  }
+  .geo-bg .shape.hexagon::before,
+  .geo-bg .shape.hexagon::after {
+    content: '';
+    position: absolute;
+    width: 0; height: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+  }
+  .geo-bg .shape.hexagon::before {
+    bottom: 100%;
+    border-bottom: 43px solid var(--gold);
+    opacity: 0.12;
+  }
+  .geo-bg .shape.hexagon::after {
+    top: 100%;
+    border-top: 43px solid var(--gold);
+    opacity: 0.12;
+  }
+  body.night-mode .geo-bg .shape.hexagon::before { border-bottom-color: #6a8aaa; }
+  body.night-mode .geo-bg .shape.hexagon::after  { border-top-color: #6a8aaa; }
+
+  .geo-bg .shape.ring {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 6px dashed var(--gold);
+    top: 8%; left: 82%;
+    animation-duration: 30s;
+    animation-delay: -10s;
+    opacity: 0.06;
+  }
+
+  @keyframes floatShape {
+    0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+    25%  { transform: translate(40px, -30px) rotate(15deg) scale(1.05); }
+    50%  { transform: translate(-20px, 50px) rotate(-10deg) scale(0.95); }
+    75%  { transform: translate(30px, 20px) rotate(8deg) scale(1.02); }
+    100% { transform: translate(-10px, -40px) rotate(-5deg) scale(1); }
+  }
+
+  /* ---------- MAIN CONTENT ---------- */
+  main {
+    position: relative;
+    z-index: 2;
+    padding: 20px 30px 40px 30px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .hero { text-align: center; padding: 30px 0 10px; }
+  .hero h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.5px; }
+  .hero h1 .red { color: var(--red); }
+  .hero h1 .green { color: var(--green); }
+  .hero p { color: var(--muted); max-width: 700px; margin: 10px auto 0; font-size: 1rem; line-height: 1.5; }
+
+  /* stats & counters placeholders */
+  #live-counters, #stats { margin: 18px 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0 10px;
+    align-items: center;
+  }
+  .filters select, .filters input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 14px;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+    outline: none;
+  }
+  .filters input { flex: 1 1 180px; }
+  .filters select:focus, .filters input:focus { border-color: var(--gold); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 10px 0 16px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .legend .dot {
+    display: inline-block;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .dot.red { background: var(--red); }
+  .dot.green { background: var(--green); }
+  .dot.gray { background: var(--gray); }
+
+  .pagination { display: flex; gap: 6px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+
+  /* detail blocks / tables */
+  .detail-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-top: 30px;
+    box-shadow: var(--shadow);
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+  }
+  .detail-block h2 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .detail-block p { color: var(--muted); line-height: 1.6; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  table th, table td {
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  table th {
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.6px;
+  }
+  table tbody tr:last-child td { border-bottom: none; }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--btn-bg);
+    color: var(--btn-text) !important;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none !important;
+    transition: background 0.2s, transform 0.1s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--gold); color: #1a1a1a !important; }
+
+  /* footer */
+  footer {
+    text-align: center;
+    padding: 22px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+    background: var(--header-bg);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  footer a { color: var(--gold); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 700px) {
+    header { flex-direction: column; align-items: flex-start; }
+    .theme-toggle { top: 8px; right: 8px; width: 38px; height: 38px; font-size: 19px; }
+    .hero h1 { font-size: 1.6rem; }
+    main { padding: 16px 14px 30px; }
+    .detail-block { padding: 16px 14px; }
+    .marquee-track { font-size: 11px; }
+    .marquee-track span { padding: 0 18px; }
+    .geo-bg .shape { transform: scale(0.6); }
+  }
+</style>
 </head>
 <body>
+
+<!-- ===== THEME TOGGLE BUTTON ===== -->
+<button class="theme-toggle" id="themeToggle" title="Toggle day / night mode" aria-label="Toggle day / night mode">🌙</button>
+
+<!-- ===== FLOATING GEOMETRIC BACKGROUND ===== -->
+<div class="geo-bg" aria-hidden="true">
+  <div class="shape circle"></div>
+  <div class="shape triangle"></div>
+  <div class="shape square"></div>
+  <div class="shape hexagon"></div>
+  <div class="shape ring"></div>
+</div>
+
+<!-- ===== TOP MARQUEE ===== -->
+<div class="marquee-wrap top">
+  <div class="marquee-track" id="marqueeTop">
+    <span>🌍 Transport Ecology Map</span>
+    <span>🛰️ Sentinel-5P NO₂ Monitoring</span>
+    <span>🏙️ Tashkent Air Quality Assessment</span>
+    <span>🚢 Port Emissions Tracking</span>
+    <span>✈️ Airport Impact Analysis</span>
+    <span>📊 OpenAQ 30,000+ Stations</span>
+    <span>🔬 PM2.5 Source Apportionment</span>
+    <span>💚 Verified vs Claimed</span>
+    <span>🌍 Transport Ecology Map</span>
+    <span>🛰️ Sentinel-5P NO₂ Monitoring</span>
+    <span>🏙️ Tashkent Air Quality Assessment</span>
+    <span>🚢 Port Emissions Tracking</span>
+    <span>✈️ Airport Impact Analysis</span>
+    <span>📊 OpenAQ 30,000+ Stations</span>
+    <span>🔬 PM2.5 Source Apportionment</span>
+    <span>💚 Verified vs Claimed</span>
+  </div>
+</div>
+
 <header>
   <div class="logo"><img src="transport-logo.png" alt="Transport Logo"> Transport Ecology Map</div>
   <nav>
@@ -24,6 +468,7 @@
     <a href="response.html">Right of Reply</a>
   </nav>
 </header>
+
 <main>
   <section class="hero">
     <h1>Transport: <span class="red">Claimed</span> vs <span class="green">Actual</span></h1>
@@ -96,6 +541,29 @@
     <a href="tokens.html" class="btn-primary">View Tokens & Pay →</a>
   </section>
 </main>
+
+<!-- ===== BOTTOM MARQUEE ===== -->
+<div class="marquee-wrap bottom">
+  <div class="marquee-track" id="marqueeBottom">
+    <span>🔴 Gap Confirmed</span>
+    <span>🟢 Verified Data</span>
+    <span>⚫ Pending Verification</span>
+    <span>📡 Satellite Monitoring</span>
+    <span>🌐 Open Database</span>
+    <span>💧 Air Quality Index</span>
+    <span>🚦 Transport Solutions</span>
+    <span>🪙 ECO Token & RWA</span>
+    <span>🔴 Gap Confirmed</span>
+    <span>🟢 Verified Data</span>
+    <span>⚫ Pending Verification</span>
+    <span>📡 Satellite Monitoring</span>
+    <span>🌐 Open Database</span>
+    <span>💧 Air Quality Index</span>
+    <span>🚦 Transport Solutions</span>
+    <span>🪙 ECO Token & RWA</span>
+  </div>
+</div>
+
 <footer>
   <p>Contact: <a href="mailto:ecologyoilgaz@gmail.com">ecologyoilgaz@gmail.com</a> ·
     <a href="eco-token.html">ECO Token</a> ·
@@ -104,7 +572,43 @@
     <a href="methodology.html">Methodology</a>
   </p>
 </footer>
+
 <script src="counter.js"></script>
 <script src="app.js"></script>
+
+<!-- ===== THEME TOGGLE SCRIPT ===== -->
+<script>
+  (function() {
+    const toggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    // Check saved preference
+    const saved = localStorage.getItem('theme');
+    if (saved === 'night') {
+      body.classList.add('night-mode');
+      toggle.textContent = '☀️';
+    } else {
+      toggle.textContent = '🌙';
+    }
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('night-mode');
+      const isNight = body.classList.contains('night-mode');
+      toggle.textContent = isNight ? '☀️' : '🌙';
+      localStorage.setItem('theme', isNight ? 'night' : 'day');
+    });
+  })();
+</script>
+
+<!-- ===== AUTO-DUPLICATE MARQUEE CONTENT IF NEEDED ===== -->
+<script>
+  (function() {
+    // Ensure the marquee track content is long enough for seamless scrolling.
+    // The HTML already contains duplicated content; this just checks width.
+    // No additional action needed — the CSS animation uses -50% translate,
+    // which works because the content is duplicated in the HTML.
+  })();
+</script>
+
 </body>
 </html>
